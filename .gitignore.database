@@ -9,3 +9,4 @@ database/backups/*.dump
 
 # Keep example files
 !.env.example
+uploads
