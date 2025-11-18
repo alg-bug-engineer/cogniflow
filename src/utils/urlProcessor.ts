@@ -1,27 +1,82 @@
 import type { URLFetchResult } from '@/types/types';
 import { sendChatStream } from './ai';
 
-// URL正则表达式
-const URL_REGEX = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi;
+// URL正则表达式 - 修复版本，支持复杂参数的URL
+// 修复：移除\b避免截断，将-放在字符类末尾，增强路径和参数匹配
+const URL_REGEX = /https?:\/\/(?:www\.)?[a-zA-Z0-9@:%._\+~#=-]+(?:\.[a-zA-Z0-9@:%._\+~#=-]+)*\.[a-zA-Z]{2,}(?:[a-zA-Z0-9()@:%_\+.~#?&/=\-]*)/gi;
 
 /**
  * 检测文本中是否包含URL
  */
 export function detectURL(text: string): string | null {
+  if (!text || typeof text !== 'string') return null;
+  
+  // 先尝试使用正则匹配
   const matches = text.match(URL_REGEX);
-  return matches ? matches[0] : null;
+  if (matches && matches[0]) {
+    const url = matches[0];
+    // 验证URL是否有效
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      try {
+        new URL(url);
+        return url;
+      } catch {
+        // URL 可能不完整但仍返回，让后续处理
+        if (url.length > 10) return url;
+      }
+    }
+  }
+  
+  // 降级方案：手动查找 http:// 或 https:// 开头的字符串
+  const httpIndex = text.indexOf('http://');
+  const httpsIndex = text.indexOf('https://');
+  const startIndex = httpsIndex !== -1 ? httpsIndex : (httpIndex !== -1 ? httpIndex : -1);
+  
+  if (startIndex !== -1) {
+    // 从 http(s):// 开始，找到第一个空格、换行或文本结束
+    const remainingText = text.substring(startIndex);
+    const endMatch = remainingText.match(/[\s\n\r<>"']/);
+    const endIndex = endMatch ? endMatch.index : remainingText.length;
+    const potentialURL = remainingText.substring(0, endIndex);
+    
+    if (potentialURL.length > 10 && (potentialURL.startsWith('http://') || potentialURL.startsWith('https://'))) {
+      try {
+        new URL(potentialURL);
+        return potentialURL;
+      } catch {
+        return potentialURL;
+      }
+    }
+  }
+  
+  return null;
 }
 
 /**
- * 检测文本是否主要是URL(URL占比超过50%)
+ * 检测文本是否主要是URL
+ * 改进：降低阈值，适应各种场景
  */
 export function isMainlyURL(text: string): boolean {
   const url = detectURL(text);
   if (!url) return false;
   
-  // 如果文本主要是URL(去除空格后URL占比超过50%)
   const trimmedText = text.trim();
-  return url.length / trimmedText.length > 0.5;
+  if (trimmedText.length === 0) return false;
+  
+  // 计算URL占比
+  const urlRatio = url.length / trimmedText.length;
+  
+  // 条件1：URL占比超过30%
+  if (urlRatio > 0.3) return true;
+  
+  // 条件2：文本去除前后空白后，URL占比超过40%
+  const textWithoutLeadingTrailingSpaces = trimmedText.replace(/^\s+|\s+$/g, '');
+  if (url.length / textWithoutLeadingTrailingSpaces.length > 0.4) return true;
+  
+  // 条件3：如果文本包含URL且URL长度超过30字符（很可能是完整URL）
+  if (url.length > 30 && trimmedText.includes(url)) return true;
+  
+  return false;
 }
 
 /**

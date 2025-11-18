@@ -696,15 +696,16 @@ export default function QuickInput({
         return null;
       }
 
+      // 优先检测是否为URL（在提取标签之前，使用原始输入文本）
+      // URL检测优先级最高，避免URL中的路径被误识别为标签
+      const detectedURL = detectURL(inputText);
+      const isURL = detectedURL && isMainlyURL(inputText);
+      
       // 提取标签短语（以 / 或 @ 开头的短语）
+      // 注意：如果已经检测到是URL，标签提取的结果可能不准确，但不影响URL处理
       const { tags: extractedTags, text: textWithoutTags } = extractTagPhrases(inputText);
       console.log('🏷️ 提取的标签:', extractedTags);
       console.log('📝 去除标签后的文本:', textWithoutTags);
-
-      // 优先检测是否为URL（使用去除标签后的文本）
-      // URL检测优先级最高，如果检测到URL且主要是URL，应该优先处理为URL类型
-      const detectedURL = detectURL(textWithoutTags);
-      const isURL = detectedURL && isMainlyURL(textWithoutTags);
       
       // 如果检测到URL且主要是URL，直接处理为URL类型，跳过后续的类型检测
       if (isURL && detectedURL) {
@@ -724,10 +725,9 @@ export default function QuickInput({
             inputText
           );
 
-          // 创建URL类型的条目（合并提取的标签）
-          const urlRawText = textWithoutTags;
+          // 创建URL类型的条目（使用原始输入文本）
           const newItem = await itemApi.createItem({
-            raw_text: urlRawText,
+            raw_text: inputText,
             type: 'url',
             title: urlResult.title,
             description: urlResult.summary,
