@@ -1,255 +1,696 @@
-# CogniFlow · AI 驱动的信息工作台
+# CogniFlow
 
 <div align="center">
-  <strong>让 AI 接手信息杂务，团队与个人都能专注在真正重要的事情上。</strong>
-  <br/><br/>
-  <img alt="license" src="https://img.shields.io/badge/license-MIT-blue.svg"/>
-  <img alt="node" src="https://img.shields.io/badge/node-%3E=20-43853d.svg"/>
-  <img alt="postgres" src="https://img.shields.io/badge/database-PostgreSQL%2016-4169e1.svg"/>
-  <img alt="status" src="https://img.shields.io/badge/status-beta-f97316.svg"/>
-  <br/><br/>
-  <a href="https://ci.ai-knowledgepoints.cn/">🚀 在线体验</a> ·
-  <a href="#-快速开始">⚡ 快速开始</a> ·
-  <a href="#-系统架构">🧱 系统架构</a> ·
-  <a href="#-文档导航">📚 文档导航</a>
+
+<img src="./docs/static/images/logo.png" alt="CogniFlow Logo" width="120"/>
+
+# 🚀 AI 驱动的智能信息管理平台
+
+**让 AI 接管信息杂务，让你专注真正重要的事**
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Node version](https://img.shields.io/badge/node-%3E%3D20.0-brightgreen)](https://nodejs.org)
+[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)](https://www.typescriptlang.org)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?logo=postgresql)](https://www.postgresql.org)
+
+[在线体验](https://cogniflow.app) · [快速开始](#-快速开始) · [功能特性](#-核心功能) · [文档](#-文档导航) · [路线图](#-产品规划)
+
+[English](./README_EN.md) · 简体中文
+
 </div>
 
 ---
 
-## 🚀 简介
+## 📖 目录
 
-CogniFlow 是一款为“信息爆炸时代”打造的智能工作台，支持多种卡片类型（任务、日程、笔记、资料、链接），通过智谱 GLM 模型自动解析文本与附件，完成分类、字段抽取、冲突检测、报告生成等操作。项目支持本地离线体验和 PostgreSQL 持久化部署，并提供完整的部署脚本、任务调度与成本控制体系。
+- [✨ 项目简介](#-项目简介)
+- [🎯 核心功能](#-核心功能)
+- [🏗️ 技术架构](#️-技术架构)
+- [🚀 快速开始](#-快速开始)
+- [💡 使用场景](#-使用场景)
+- [🛠️ 技术栈](#️-技术栈)
+- [📂 项目结构](#-项目结构)
+- [🔧 配置说明](#️-配置说明)
+- [📚 文档导航](#-文档导航)
+- [🤝 参与贡献](#-参与贡献)
+- [📞 支持与社区](#-支持与社区)
+- [📝 开源协议](#-开源协议)
 
 ---
 
-## ✨ 核心亮点
+## ✨ 项目简介
 
-- **全栈 AI 能力**：基于智谱 GLM 文本与视觉 API，支持自然语言输入、文件识别、智能标签、自动摘要与报告，内置 `@help` 快捷命令，随时唤出指引弹窗查看常见操作。
-- **双模存储**：浏览器 IndexedDB 秒级体验 + PostgreSQL 多人协同模式，随时切换，覆盖个人与团队需求。
-- **事件提醒闭环**：内置日程冲突检测、提醒队列与 QQ SMTP 邮件推送，可自定义提醒窗口与发送频率，提醒日志完整可追踪。
-- **附件与写作**：支持图片、PDF、Office 文档等上传并自动生成摘要、标签，同时 `/blog` 快捷命令可直接打开 Markdown 编辑器，沉浸式撰写文章或知识卡片。
-- **API 成本护栏**：按照用户类型扣减 AI 调用次数，支持个人 API Key，部署脚本会自动写入默认配额。
-- **安全与可运维性**：JWT 鉴权、角色控制、日志审计、数据库验证脚本、一键部署与回滚、详细安全指南。
+**CogniFlow** 是一款为信息爆炸时代打造的智能信息管理平台，深度融合 AI 能力，帮助个人和团队高效管理任务、日程、笔记和知识。
+
+### 🎯 设计理念
+
+- **AI First**: 将 AI 深度融入每一个工作流，而非简单的功能叠加
+- **Simple but Powerful**: 界面简洁，功能强大
+- **Privacy First**: 本地优先，数据自主可控
+- **Open & Extensible**: 开源架构，支持插件扩展
+
+### 🌟 为什么选择 CogniFlow？
+
+| 特性 | CogniFlow | Notion | Obsidian | Todoist |
+|------|-----------|--------|----------|---------|
+| **AI 深度集成** | ✅ 原生 AI 能力 | ⚠️ 有限 | ⚠️ 插件依赖 | ❌ 无 |
+| **本地优先** | ✅ IndexedDB + 云端 | ❌ 仅云端 | ✅ 本地文件 | ❌ 仅云端 |
+| **中文优化** | ✅ 智谱 AI 深度优化 | ⚠️ 一般 | ⚠️ 一般 | ⚠️ 一般 |
+| **团队协作** | 🔥 开发中 | ✅ 成熟 | ⚠️ 插件 | ✅ 成熟 |
+| **开源免费** | ✅ MIT 协议 | ❌ 闭源 | ✅ 开源 | ❌ 闭源 |
 
 ---
 
-## 🧱 系统架构
+## 🎯 核心功能
+
+### 🤖 AI 智能引擎
+
+<div align="center">
+  <img src="./docs/static/images/ai-demo.gif" alt="AI 功能演示" width="800"/>
+</div>
+
+#### 智能分类与理解
+- **自动分类**: AI 自动识别内容类型（任务/日程/笔记/资料/事件）
+- **智能提取**: 自动提取时间、地点、人物、标签等关键信息
+- **语义分析**: 深度理解内容语义，智能推荐相关卡片
+- **多模态支持**: 文本、语音、图片、PDF 全方位支持
+
+#### AI 能力矩阵
+
+```typescript
+AI_Capabilities {
+  // 文本处理
+  text_analysis: ["分类", "摘要", "标签生成", "情感分析"]
+  voice_input: ["语音转文字", "多语言支持", "实时识别"]
+
+  // 视觉理解
+  image_analysis: ["OCR识别", "场景描述", "文字提取", "内容生成"]
+  attachment_support: ["PDF", "Word", "图片", "音频", "视频"]
+
+  // 智能建议
+  smart_recommendations: ["相关内容", "最佳实践", "模板推荐"]
+  conflict_detection: ["时间冲突", "资源冲突", "优先级建议"]
+}
+```
+
+### 📊 多视图管理
+
+- **📋 看板视图**: 拖拽式任务管理，直观的进度追踪
+- **📅 日历视图**: 月/周/日多维度，时间冲突智能检测
+- **📝 列表视图**: 高效的信息浏览和批量操作
+- **📈 报告视图**: AI 自动生成周报、月报和数据分析
+
+### 🎙️ 多模态输入
+
+- **自然语言**: 直接输入，AI 自动处理
+- **语音输入**: 🎤 支持语音转文字，解放双手
+- **附件上传**: 📎 图片、文档、音频智能分析
+- **快捷命令**: `/blog` 打开编辑器，`@help` 获取帮助
+
+### 🔔 智能提醒系统
+
+<div align="center">
+  <img src="./docs/static/images/reminder-demo.png" alt="提醒系统" width="600"/>
+</div>
+
+- **冲突检测**: 自动检测时间冲突并给出建议
+- **智能提醒**: 邮件、浏览器通知双重提醒
+- **提醒队列**: 可视化管理所有待发送提醒
+- **邮件推送**: 支持 QQ 邮箱 SMTP 自动发送
+
+### 📦 附件管理
+
+- **多格式支持**: 图片、PDF、Office 文档
+- **AI 自动分析**: 提取内容、生成摘要、自动标签
+- **缩略图生成**: 图片自动生成预览缩略图
+- **存储灵活**: 本地存储或云端 OSS
+
+### 🎨 智能模板
+
+- **模板库**: 内置丰富模板，一键套用
+- **触发词**: 输入关键词自动填充模板
+- **自定义模板**: 支持用户自定义工作流模板
+- **变量系统**: 动态变量、自动填充
+
+### 🔒 安全与权限
+
+- **JWT 认证**: 安全的 Token 认证机制
+- **角色控制**: 管理员/普通用户权限分离
+- **API 配额**: 灵活的 API 使用次数管理
+- **个人 API Key**: 用户可配置自己的 AI Key
+
+---
+
+## 🏗️ 技术架构
+
+### 系统架构图
 
 ```
-┌────────────────────────────┐
-│ 前端 (Vite + React + TS)   │
-│ • UI + 状态管理            │
-│ • IndexedDB 本地模式       │
-│ • 通过 REST 调用后端       │
-└────────────┬─────────────┘
-             │
-             ▼
-┌────────────────────────────┐
-│ API 服务 (Node.js + Express)│
-│ • JWT 认证 / RBAC           │
-│ • 业务路由 & 校验           │
-│ • Cron 提醒服务             │
-│ • 附件处理 & AI 调用        │
-└───────┬───────────┬───────┘
-        │           │
-        │           │
-        ▼           ▼
-┌────────────┐  ┌────────────────────────┐
-│PostgreSQL  │  │外部服务                │
-│• 主数据存储│  │• 智谱 GLM 文本/视觉 API │
-│• 触发器函数│  │• QQ SMTP 邮件           │
-│• API 配额   │  │• 本地文件系统(附件)     │
-└────────────┘  └────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                        前端层 (Frontend)                      │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
+│  │  React UI    │  │  状态管理     │  │  IndexedDB   │      │
+│  │  (Vite+TS)   │  │  (Context)   │  │  本地存储     │      │
+│  └──────────────┘  └──────────────┘  └──────────────┘      │
+└───────────────────────────┬─────────────────────────────────┘
+                            │ REST API
+                            ▼
+┌─────────────────────────────────────────────────────────────┐
+│                      服务层 (Backend)                        │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
+│  │  Express API │  │  JWT 认证     │  │  Cron 定时    │      │
+│  │  (Node.js)   │  │  权限控制     │  │  提醒服务     │      │
+│  └──────────────┘  └──────────────┘  └──────────────┘      │
+└───────────────────────────┬─────────────────────────────────┘
+                            │
+        ┌───────────────────┼───────────────────┐
+        │                   │                   │
+        ▼                   ▼                   ▼
+┌──────────────┐  ┌──────────────┐  ┌──────────────┐
+│  PostgreSQL  │  │  AI 服务      │  │  外部服务     │
+│  主数据存储   │  │  智谱 GLM     │  │  邮件 SMTP   │
+│  多表+索引    │  │  文本/视觉    │  │  文件系统    │
+└──────────────┘  └──────────────┘  └──────────────┘
 ```
 
-- 通过 `deploy-all.sh` 自动拉起 PostgreSQL 与 pgAdmin、初始化表结构与索引、写入默认模板与管理员账号。
-- 附件统一存储在 `server/uploads`（可通过 `UPLOAD_DIR` 指定绝对路径），支持生成缩略图与 AI 分析结果。
-- 提醒服务默认每分钟巡检一次即将开始的日程并发送邮件，可通过 `server/services/reminderService.ts` 调整。
+### 数据流图
 
----
+```mermaid
+graph LR
+    A[用户输入] --> B[AI 处理]
+    B --> C{内容分析}
+    C --> D[自动分类]
+    C --> E[提取信息]
+    C --> F[生成标签]
+    D --> G[存储到数据库]
+    E --> G
+    F --> G
+    G --> H[触发提醒]
+    H --> I[发送通知]
+```
 
-## 🛠 技术栈与服务
+### 架构特点
 
-| 模块 | 技术/依赖 | 说明 |
-|------|-----------|------|
-| Web 前端 | React 18 · TypeScript · Vite · Tailwind · shadcn/ui | 主界面、看板、日历、报告等功能 |
-| API 服务 | Node.js · Express · pg · jsonwebtoken · multer · nodemailer | REST API、认证、文件上传、提醒与日志 |
-| AI 能力 | 智谱 GLM-4/GLM-4V · eventsource-parser | 文本与视觉分析、流式输出 |
-| 数据存储 | PostgreSQL 16 · Docker Compose · SQL 脚本 | 多表设计（users/items/tags/attachments/...）+ 54 个索引 |
-| 调度 & 工具 | Cron Scheduler · scripts/* | API 使用统计、提醒任务、部署自检、测试脚本 |
-
-更多细节请参见 `docs/development/DEVELOPER_GUIDE.md` 与 `docs/deployment/DATABASE_DEPLOYMENT_GUIDE.md`。
-
----
-
-## ⚙️ 环境要求
-
-- macOS / Linux / Windows (WSL2)。
-- Node.js ≥ 20.x、pnpm ≥ 9.x（首次运行会自动安装）。
-- Docker + Docker Compose（PostgreSQL 模式必需）。
-- 外部服务：
-  - 智谱 AI API Key（系统默认 Key 可用于开发，生产建议为每位用户配置个人 Key）。
-  - QQ 邮箱 SMTP（开启授权码后写入 `EMAIL_USER/EMAIL_PASSWORD` 即可启用邮件提醒）。
+1. **前后端分离**: React + TypeScript / Node.js + Express
+2. **双模式存储**: IndexedDB（本地）+ PostgreSQL（云端）
+3. **AI First Design**: 所有功能都围绕 AI 能力设计
+4. **微服务就绪**: 模块化设计，易于扩展为微服务架构
 
 ---
 
 ## 🚀 快速开始
 
-### 方式一：本地极速体验（IndexedDB）
+### 📋 环境要求
+
+- **Node.js**: >= 20.0
+- **pnpm**: >= 9.0（推荐）或 npm >= 10.0
+- **Docker**: >= 20.0（PostgreSQL 模式）
+- **操作系统**: macOS / Linux / Windows (WSL2)
+
+### ⚡ 方式一：本地极速体验（推荐新手）
+
+<div align="center">
+
+**⏱️ 3分钟上手 | 无需数据库 | 离线可用**
 
 ```bash
+# 1. 克隆项目
 git clone https://github.com/alg-bug-engineer/cogniflow.git
 cd cogniflow
+
+# 2. 安装依赖
 pnpm install
-cp .env.example .env              # 保持 VITE_STORAGE_MODE=local
+
+# 3. 启动开发服务器
 pnpm run dev
 ```
 
-打开 `http://127.0.0.1:5173` 即可体验全部前端功能（数据保存在浏览器 IndexedDB，支持离线，关闭浏览器后仍可保留）。
+访问 **http://127.0.0.1:5173** 开始体验 ✨
 
-### 方式二：PostgreSQL 团队部署（推荐）
+</div>
+
+### 🗄️ 方式二：PostgreSQL 完整部署（推荐团队）
+
+<div align="center">
+
+**⏱️ 5分钟部署 | 完整功能 | 团队协作**
 
 ```bash
-cd cogniflow
+# 1. 一键部署（自动启动 PostgreSQL + 初始化数据库）
 chmod +x deploy-all.sh
-./deploy-all.sh                   # 按提示输入 yes，脚本会清空旧容器和数据
-pnpm run dev:postgres             # 同时启动前端 + API 服务
+./deploy-all.sh
+
+# 2. 启动前后端服务
+pnpm run dev:postgres
 ```
 
-- 前端：`http://127.0.0.1:5173`
-- API：`http://localhost:3001/api`
-- pgAdmin：`http://localhost:5050`（账号 `admin@example.com` / 密码 `admin123`）
-- 默认管理员：`admin` / `admin123`（首次登录后请立即修改）
+</div>
 
-部署脚本还会自动生成：
-- API 使用配额（注册用户 40 次、快速体验 10 次，个人 API Key 可无限制）
-- `server/.env` 与 `.env`（含数据库、JWT、邮件、前端地址等配置）
-- 数据库校验脚本：`./database/verify-deployment-docker.sh`
+**服务访问地址**:
+- 🌐 前端: http://127.0.0.1:5173
+- 🔌 API: http://localhost:3001/api
+- 🗄️ pgAdmin: http://localhost:5050
+- 👤 默认管理员: `admin` / `admin123`
 
-更多环境与排障指南可参考 `docs/quickstart/QUICK_START.md` 与 `docs/deployment/DEPLOY_GUIDE.md`。
+### 🐳 方式三：Docker 部署
 
----
+```bash
+# 使用 Docker Compose 启动所有服务
+docker-compose up -d
 
-## 🧭 快捷命令与帮助
+# 查看日志
+docker-compose logs -f
 
-- `/blog`：在任意输入框触发后立即打开全屏 Markdown 编辑器，可用于日报、周报、博客文章或知识库内容撰写，保存后自动生成资料卡片并支持版本管理。
-- `@help`：弹出操作指引，内置常见任务（创建卡片、切换视图、配置 AI、附件上传等）的快速教程与跳转入口，新手无需离开当前页面即可查阅。
-- 邮件提醒：在 PostgreSQL 模式下默认启用后台巡检，结合 QQ SMTP 自动发送“日程开始前 5 分钟”提醒邮件，历史记录可在 `reminder_logs` 表中追踪。
+# 停止服务
+docker-compose down
+```
 
----
+### 📱 移动端访问
 
-## 🔧 环境变量
+部署完成后，通过局域网 IP 即可在手机浏览器访问：
 
-### 前端 (`.env`)
+```bash
+# 获取本机 IP
+ifconfig | grep inet
 
-| 变量 | 说明 | 示例 / 默认 | 备注 |
-|------|------|-------------|------|
-| `VITE_STORAGE_MODE` | 存储模式 | `local` / `postgres` | `postgres` 时会启用全部 API 功能 |
-| `VITE_API_URL` | API 根地址 | `http://127.0.0.1:3001/api` | PostgreSQL 模式必填 |
-| `VITE_ZHIPUAI_API_KEY` | 系统级智谱 Key（兼容 `VITE_GLM_API_KEY`） | `sk-xxxxx` | 个人 Key 可在前端设置中覆盖 |
-| `VITE_ZHIPUAI_MODEL` | 默认文本模型（兼容 `VITE_GLM_MODEL`） | `glm-4-flash` | 支持热切换 |
-| `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY` | 历史遗留的对象存储/认证支持 | - | 可留空 |
-| `VITE_PRIVACY_POLICY_URL` / `VITE_USER_POLICY_URL` | 隐私/用户协议链接 | 可选 | 登录页开关由 `VITE_SHOW_POLICY` 控制 |
+# 手机浏览器访问
+http://192.168.x.x:5173
+```
 
-完整说明见 `docs/configuration/ENVIRONMENT.md`。
-
-### 后端 (`server/.env`)
-
-| 变量 | 说明 | 示例 / 默认 |
-|------|------|-------------|
-| `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` | PostgreSQL 连接信息 | `localhost:5432 / cogniflow / cogniflow_user / cogniflow_password_2024` |
-| `PORT` | API 服务端口 | `3001` |
-| `FRONTEND_URL` | CORS 白名单 | `http://127.0.0.1:5173` |
-| `JWT_SECRET` | JWT 加密密钥 | 自动生成 |
-| `EMAIL_USER`, `EMAIL_PASSWORD` | 邮件提醒账号 & 授权码 | 需要手动补充 |
-| `ZHIPUAI_API_KEY` | 默认智谱 Key（兼容 `ZHIPU_API_KEY`） | 可与前端一致 |
-| `UPLOAD_DIR` | 附件根目录 | 默认 `server/uploads` |
+> 💡 **提示**: 更多部署细节请参考 [部署指南](./docs/deployment/DEPLOYMENT_GUIDE.md)
 
 ---
 
-## 📂 项目结构速览
+## 💡 使用场景
+
+### 👨‍💻 个人开发者
+
+**场景**: 管理代码任务、学习笔记、技术文章
+
+```
+输入: "明天下午3点和Alex讨论API设计，需要准备接口文档"
+├─> AI 自动识别为: 日程
+├─> 提取信息: 时间(明天15:00)、人物(Alex)、事项(讨论API设计)
+├─> 自动添加任务: 准备接口文档
+└─> 设置提醒: 提前15分钟通知
+```
+
+### 👥 产品团队
+
+**场景**: 需求收集、迭代规划、会议记录
+
+```
+功能: 团队协作空间 (开发中)
+├─> 共享工作区
+├─> 实时协同编辑
+├─> @提及通知
+└─> 权限精细控制
+```
+
+### 📚 知识管理
+
+**场景**: 构建个人知识库、学习笔记整理
+
+```
+输入: 上传 PDF 论文
+├─> AI 自动分析: 提取摘要、关键信息
+├─> 自动标签: 机器学习、深度学习
+├─> 关联推荐: 相关笔记、论文
+└─> 生成卡片: 可搜索、可引用
+```
+
+### 📅 项目管理
+
+**场景**: 任务追踪、里程碑管理
+
+```
+视图: 看板 + 日历
+├─> 拖拽式任务管理
+├─> 时间冲突检测
+├─> 进度可视化
+└─> 智能报告生成
+```
+
+---
+
+## 🛠️ 技术栈
+
+### 前端技术
+
+| 技术 | 版本 | 用途 |
+|------|------|------|
+| [React](https://react.dev) | 18.x | UI 框架 |
+| [TypeScript](https://www.typescriptlang.org) | 5.x | 类型安全 |
+| [Vite](https://vitejs.dev) | 5.x | 构建工具 |
+| [Tailwind CSS](https://tailwindcss.com) | 3.x | 样式框架 |
+| [shadcn/ui](https://ui.shadcn.com) | Latest | UI 组件库 |
+| [Zustand](https://zustand-demo.pmnd.rs) | Latest | 状态管理 |
+| [React Query](https://tanstack.com/query) | Latest | 数据请求 |
+
+### 后端技术
+
+| 技术 | 版本 | 用途 |
+|------|------|------|
+| [Node.js](https://nodejs.org) | 20.x | 运行环境 |
+| [Express](https://expressjs.com) | 4.x | Web 框架 |
+| [PostgreSQL](https://www.postgresql.org) | 16.x | 数据库 |
+| [JWT](https://jwt.io) | Latest | 认证授权 |
+| [Multer](https://github.com/expressjs/multer) | Latest | 文件上传 |
+| [Nodemailer](https://nodemailer.com) | Latest | 邮件发送 |
+
+### AI 服务
+
+| 服务 | 用途 |
+|------|------|
+| [智谱 GLM-4](https://open.bigmodel.cn) | 文本生成与理解 |
+| [智谱 GLM-4V](https://open.bigmodel.cn) | 视觉内容分析 |
+
+### 开发工具
+
+- **代码规范**: Biome + ESLint
+- **提交规范**: Conventional Commits
+- **版本控制**: Git + GitHub
+- **容器化**: Docker + Docker Compose
+
+---
+
+## 📂 项目结构
 
 ```
 cogniflow/
-├── src/                     # 前端源码
-│   ├── components/          # UI 与业务组件
-│   ├── pages/               # 仪表盘 / 报告 / 设置
-│   ├── db/                  # IndexedDB & PostgreSQL 适配层
-│   ├── services/            # API/AI/成本服务
-│   └── utils/               # AI 解析、提醒、导入导出等工具
-├── server/                  # Express API 服务
-│   ├── routes/              # items/users/templates/attachments 等 REST 路由
-│   ├── services/            # Reminder、Email、AI Vision、Attachment
-│   └── db/                  # pg Pool、事务封装
-├── database/                # SQL 脚本、迁移、验证工具
-├── scripts/                 # test-api / verify-database / install-db-deps 等脚本
-├── docs/                    # 用户、开发、部署、功能文档
-└── deploy-all.sh            # 一键部署脚本
+├── 📂 src/                          # 前端源码
+│   ├── 📂 components/               # React 组件
+│   │   ├── ui/                      # shadcn/ui 基础组件
+│   │   ├── items/                   # 条目相关组件
+│   │   ├── attachments/             # 附件组件
+│   │   └── voice/                   # 语音输入组件
+│   ├── 📂 pages/                    # 页面组件
+│   │   ├── Dashboard.tsx            # 仪表盘
+│   │   ├── Report.tsx               # 报告页
+│   │   └── Settings.tsx             # 设置页
+│   ├── 📂 db/                       # 数据库适配层
+│   │   ├── indexedDB.ts             # IndexedDB 封装
+│   │   └── postgres.ts              # PostgreSQL 适配
+│   ├── 📂 services/                 # 业务服务
+│   │   ├── aiService.ts             # AI 服务
+│   │   ├── apiService.ts            # API 请求
+│   │   └── reminderService.ts       # 提醒服务
+│   ├── 📂 hooks/                    # 自定义 Hooks
+│   ├── 📂 utils/                    # 工具函数
+│   └── 📂 styles/                   # 全局样式
+│
+├── 📂 server/                       # 后端源码
+│   ├── 📂 routes/                   # API 路由
+│   │   ├── items.ts                 # 条目 CRUD
+│   │   ├── users.ts                 # 用户管理
+│   │   ├── attachments.ts           # 附件上传
+│   │   └── templates.ts             # 模板管理
+│   ├── 📂 services/                 # 业务服务
+│   │   ├── aiVisionService.ts       # AI 视觉服务
+│   │   ├── reminderService.ts       # 提醒服务
+│   │   └── emailService.ts          # 邮件服务
+│   ├── 📂 db/                       # 数据库
+│   │   ├── pool.ts                  # 连接池
+│   │   └── queries/                 # SQL 查询
+│   └── 📂 middlewares/              # 中间件
+│
+├── 📂 database/                     # 数据库脚本
+│   ├── 📂 migrations/               # 迁移脚本
+│   ├── deploy.sql                   # 部署脚本
+│   └── verify-deployment-docker.sh  # 验证脚本
+│
+├── 📂 docs/                         # 文档
+│   ├── 📂 quickstart/               # 快速开始
+│   ├── 📂 user-guide/               # 用户指南
+│   ├── 📂 development/              # 开发文档
+│   ├── 📂 deployment/               # 部署文档
+│   ├── 📂 features/                 # 功能说明
+│   └── 📂 archive/                  # 历史文档
+│
+├── 📂 scripts/                      # 工具脚本
+│   ├── test-api.sh                  # API 测试
+│   └── install-db-deps.sh           # 依赖安装
+│
+├── 📄 .env.example                  # 环境变量示例
+├── 📄 package.json                  # 项目配置
+├── 📄 tsconfig.json                 # TS 配置
+├── 📄 tailwind.config.js            # Tailwind 配置
+├── 📄 vite.config.ts                # Vite 配置
+└── 🚀 deploy-all.sh                 # 一键部署脚本
 ```
 
 ---
 
-## 🧪 验证与开发脚本
+## 🔧 配置说明
 
-- `./database/verify-deployment-docker.sh`：验证容器状态、表结构、索引、默认数据。
-- `./scripts/test-api.sh`：快速检查核心 API（登录、创建条目、查询、删除）。
-- `./scripts/test-smart-templates.sh`：校验模板触发词与生成内容。
-- `pnpm run lint`：Biome + ast-grep 组合校验。
-- `pnpm run dev:postgres`：以双进程模式启动前端（Vite）与后端（Express）。
+### 环境变量配置
+
+#### 前端环境变量 (`.env`)
+
+```bash
+# 存储模式: local(本地) | postgres(云端)
+VITE_STORAGE_MODE=postgres
+
+# API 服务地址
+VITE_API_URL=http://127.0.0.1:3001/api
+
+# 智谱 AI 配置
+VITE_ZHIPUAI_API_KEY=your_api_key_here
+VITE_ZHIPUAI_MODEL=glm-4-flash
+
+# 其他配置
+VITE_APP_NAME=CogniFlow
+VITE_SHOW_POLICY=true
+```
+
+#### 后端环境变量 (`server/.env`)
+
+```bash
+# 数据库配置
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=cogniflow
+DB_USER=cogniflow_user
+DB_PASSWORD=your_password_here
+
+# 服务配置
+PORT=3001
+FRONTEND_URL=http://127.0.0.1:5173
+JWT_SECRET=your_jwt_secret_here
+
+# 邮件配置（可选）
+EMAIL_USER=your_email@qq.com
+EMAIL_PASSWORD=your_qq_smtp_password
+
+# 附件配置
+UPLOAD_DIR=./server/uploads
+MAX_FILE_SIZE=10485760
+
+# AI 配置
+ZHIPUAI_API_KEY=your_api_key_here
+```
+
+> 💡 **提示**: 完整配置说明请参考 [环境变量文档](./docs/configuration/ENVIRONMENT.md)
+
+### AI API Key 配置
+
+CogniFlow 支持**系统级 API Key** 和**用户个人 API Key**：
+
+1. **系统级 Key**: 在 `.env` 中配置，所有用户共享
+2. **个人 Key**: 用户在设置页面配置，仅本人使用
+
+**获取智谱 AI API Key**:
+1. 访问 [智谱 AI 开放平台](https://open.bigmodel.cn)
+2. 注册/登录账号
+3. 在控制台创建 API Key
+4. 复制到配置文件
 
 ---
 
 ## 📚 文档导航
 
-- **快速上手**：[docs/quickstart/QUICK_START.md](./docs/quickstart/QUICK_START.md)、[docs/quickstart/STARTUP_GUIDE.md](./docs/quickstart/STARTUP_GUIDE.md)
-- **部署运维**：[docs/deployment/DEPLOYMENT_GUIDE.md](./docs/deployment/DEPLOYMENT_GUIDE.md)、[docs/deployment/DATABASE_DEPLOYMENT_GUIDE.md](./docs/deployment/DATABASE_DEPLOYMENT_GUIDE.md)、[docs/deployment/SECURITY_GUIDE.md](./docs/deployment/SECURITY_GUIDE.md)
-- **功能说明**：智能模板、冲突检测、附件、API 配额等详见 `docs/features/*`
-- **开发指南**：`docs/development/DEVELOPER_GUIDE.md`、`docs/development/DATABASE_GUIDE.md`、`docs/development/TESTING_GUIDE.md`
-- **更新记录**：`docs/CHANGELOG.md`
-- **产品规划**：`docs/prd.md`
+### 🚀 快速上手
 
----
+- [快速开始指南](./docs/quickstart/QUICK_START.md) - 3分钟上手教程
+- [启动指南](./docs/quickstart/STARTUP_GUIDE.md) - 详细启动步骤
+- [PostgreSQL 配置](./docs/quickstart/QUICKSTART_POSTGRES.md) - 数据库配置
 
-## 📅 更新与路线图
+### 👥 用户文档
 
-- 版本更新详见 `docs/CHANGELOG.md`，最新脚本版本为 `deploy-all.sh v1.2.0`，新增个人 API Key、AI 调用限额与提醒队列。
-- 中长期规划（移动端、第三方日历、通知中心等）可参考 `docs/prd.md`。
+- [用户手册](./docs/user-guide/USER_MANUAL.md) - 完整功能说明
+- [界面指南](./docs/user-guide/USER_INTERFACE_GUIDE.md) - 界面操作
+- [用户系统](./docs/user-guide/USER_SYSTEM_GUIDE.md) - 账户管理
+
+### 💻 开发文档
+
+- [开发指南](./docs/development/DEVELOPER_GUIDE.md) - 开发环境配置
+- [数据库指南](./docs/development/DATABASE_GUIDE.md) - 数据库设计
+- [测试指南](./docs/development/TESTING_GUIDE.md) - 测试规范
+
+### 🚀 部署文档
+
+- [部署指南](./docs/deployment/DEPLOYMENT_GUIDE.md) - 生产环境部署
+- [数据库部署](./docs/deployment/DATABASE_DEPLOYMENT_GUIDE.md) - 数据库配置
+- [安全指南](./docs/deployment/SECURITY_GUIDE.md) - 安全配置
+
+### ⚡ 功能说明
+
+- [API 使用限制](./docs/features/API_USAGE_LIMITS.md) - API 配额管理
+- [附件功能](./docs/features/ATTACHMENTS.md) - 附件上传与 AI 分析
+- [智能模板](./docs/features/SMART_TEMPLATES.md) - 模板系统
+- [冲突检测](./docs/features/CONFLICT_DETECTION.md) - 时间冲突检测
+- [语音输入](./docs/features/VOICE_INPUT.md) - 语音转文字
+
+### 📖 其他文档
+
+- [更新日志](./docs/CHANGELOG.md) - 版本更新记录
+- [设计系统](./docs/DESIGN_SYSTEM.md) - UI 设计规范
+- [产品规划](./docs/prd.md) - 产品路线图
+- [产品路线图](./docs/PRODUCT_ROADMAP.md) - 未来规划
 
 ---
 
 ## 🤝 参与贡献
 
-欢迎提交 Issue、PR 或文档修订：
+我们欢迎所有形式的贡献！无论是代码、文档、Bug 报告还是功能建议。
 
-1. Fork 仓库并创建分支：`git checkout -b feature/awesome`
-2. 提交代码：`git commit -m "feat: add awesome feature"`
-3. 运行 `pnpm run lint` 与相关脚本
-4. 发起 Pull Request 并附上测试说明
+### 🐛 报告问题
 
-我们使用 Conventional Commits 语义提交，更多规范见 `docs/development/DEVELOPER_GUIDE.md`。
+在 [GitHub Issues](https://github.com/alg-bug-engineer/cogniflow/issues) 中报告 Bug 或提出功能建议。
+
+### 💻 提交代码
+
+1. **Fork 项目**
+   ```bash
+   # 点击 GitHub 页面右上角 Fork 按钮
+   git clone https://github.com/YOUR_USERNAME/cogniflow.git
+   cd cogniflow
+   ```
+
+2. **创建分支**
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+3. **提交代码**
+   ```bash
+   # 遵循 Conventional Commits 规范
+   git commit -m "feat: add awesome feature"
+   ```
+
+4. **推送分支**
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+
+5. **创建 Pull Request**
+   - 在 GitHub 上创建 PR
+   - 填写 PR 模板
+   - 等待 Code Review
+
+### 📝 代码规范
+
+- **提交规范**: 遵循 [Conventional Commits](https://www.conventionalcommits.org/)
+- **代码风格**: 使用 `pnpm run lint` 检查
+- **测试**: 确保所有测试通过 `pnpm test`
+
+### 🎨 贡献指南
+
+- ✅ 清晰的提交信息
+- ✅ 代码风格一致
+- ✅ 添加必要的测试
+- ✅ 更新相关文档
+- ✅ 小步提交，频繁 PR
 
 ---
 
 ## 📞 支持与社区
 
-- 📧 邮箱：support@cogniflow.app
-- 🐞 Bug / 功能建议：GitHub Issues（仓库开放后会补充链接）
-- 📖 文档中心：`./docs`
-- 💬 微信交流群（二维码 7 天有效，失效请在群公告或 Issue 中索取最新图）
+### 📧 联系方式
+
+- **邮箱**: support@cogniflow.app
+- **官网**: https://cogniflow.app
+- **文档**: https://docs.cogniflow.app
+
+### 💬 社区
 
 <div align="center">
-  <img src="./imgs/group.png" alt="CogniFlow 微信交流群二维码" width="260"/>
-  <p><em>扫码加入「cogniflow 交流群」，与核心团队直接交流</em></p>
+
+| 平台 | 链接 | 说明 |
+|------|------|------|
+| **GitHub** | [alg-bug-engineer/cogniflow](https://github.com/alg-bug-engineer/cogniflow) | 源码仓库 |
+| **微信群** | 见下方二维码 | 用户交流群 |
+| **邮件列表** | dev@cogniflow.app | 开发者讨论 |
+
 </div>
 
+### 📱 微信交流群
+
+<div align="center">
+  <img src="./imgs/group.png" alt="CogniFlow 微信群" width="260"/>
+  <p><em>扫码加入「CogniFlow 交流群」</em></p>
+</div>
+
+> ⚠️ **注意**: 二维码 7 天有效，失效请在 Issue 中索取最新二维码
+
+### 🌟 Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=alg-bug-engineer/cogniflow&type=Date)](https://star-history.com/#alg-bug-engineer/cogniflow&Date)
+
 ---
 
-## 📝 许可证
+## 🏆 致谢
 
-项目遵循 MIT License（待在仓库根目录补充 LICENSE 文件）。使用或二次开发时请保留原作者版权信息。
+感谢以下开源项目的贡献：
+
+- [React](https://react.dev) - UI 框架
+- [Vite](https://vitejs.dev) - 构建工具
+- [Tailwind CSS](https://tailwindcss.com) - CSS 框架
+- [shadcn/ui](https://ui.shadcn.com) - UI 组件
+- [PostgreSQL](https://www.postgresql.org) - 数据库
+- [智谱 AI](https://open.bigmodel.cn) - AI 服务支持
+
+特别感谢所有为 CogniFlow 贡献代码、文档、反馈和建议的开发者！🙏
 
 ---
 
-## 🙏 致谢
+## 📝 开源协议
 
-感谢 React、Tailwind、shadcn/ui、PostgreSQL、智谱 AI、Vite 等优秀项目的支持，以及所有为 CogniFlow 贡献代码、文档与反馈的伙伴。
+本项目采用 [MIT License](LICENSE) 开源协议。
+
+```
+MIT License
+
+Copyright (c) 2024 CogniFlow Team
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+---
+
+<div align="center">
+
+**[⬆ 回到顶部](#cogniflow)**
+
+Made with ❤️ by CogniFlow Team
+
+[官网](https://cogniflow.app) · [文档](./docs) · [博客](https://blog.cogniflow.app) · [Twitter](https://twitter.com/cogniflow)
+
+</div>
