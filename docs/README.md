@@ -233,46 +233,82 @@
 
 ```
 docs/
-├── README.md                    # 本文档
-├── CHANGELOG.md                 # 更新日志
-├── prd.md                       # 产品需求文档
+├── README.md                       # 本文档（文档导航中心）
+├── CHANGELOG.md                    # 更新日志
+├── prd.md                          # 产品需求文档
+├── DESIGN_SYSTEM.md                # 设计系统文档
 │
-├── quickstart/                  # 快速开始
-│   ├── QUICK_START.md          # 快速开始指南 ⭐
-│   ├── STARTUP_GUIDE.md        # 启动指南
-│   └── QUICKSTART_POSTGRES.md  # PostgreSQL 快速开始
+├── quickstart/                     # 快速开始
+│   ├── QUICK_START.md             # 快速开始指南 ⭐
+│   ├── STARTUP_GUIDE.md           # 启动指南
+│   ├── QUICKSTART_POSTGRES.md     # PostgreSQL 快速开始
+│   ├── API_USAGE_LIMITS_QUICKSTART.md
+│   ├── ATTACHMENT_IMAGE_QUICKSTART.md
+│   ├── BLOG_QUICKSTART.md
+│   ├── REMINDER_QUICKSTART.md
+│   ├── VOICE_INPUT_QUICKSTART.md
+│   └── STARTUP_GUIDE.md
 │
-├── user-guide/                  # 用户指南
-│   ├── USER_MANUAL.md          # 用户手册 ⭐
-│   ├── USER_INTERFACE_GUIDE.md # 界面指南
-│   └── USER_SYSTEM_GUIDE.md    # 用户系统指南
+├── user-guide/                     # 用户指南
+│   ├── USER_MANUAL.md             # 用户手册 ⭐
+│   ├── USER_INTERFACE_GUIDE.md    # 界面指南
+│   ├── USER_SYSTEM_GUIDE.md       # 用户系统指南
+│   ├── VOICE_INPUT_GUIDE.md       # 语音输入指南
+│   └── MANUAL_UPDATE_2025-11-05.md
 │
-├── development/                 # 开发文档
-│   ├── DEVELOPER_GUIDE.md      # 开发指南 ⭐
-│   ├── DATABASE_GUIDE.md       # 数据库指南
+├── development/                    # 开发文档
+│   ├── DEVELOPER_GUIDE.md         # 开发指南 ⭐
+│   ├── DATABASE_GUIDE.md          # 数据库指南
 │   ├── DATABASE_MIGRATION_GUIDE.md
-│   └── TESTING_GUIDE.md        # 测试指南
+│   └── TESTING_GUIDE.md           # 测试指南
 │
-├── deployment/                  # 部署文档
-│   ├── DEPLOYMENT_GUIDE.md     # 部署指南 ⭐
+├── deployment/                     # 部署文档
+│   ├── DEPLOYMENT_GUIDE.md        # 部署指南 ⭐
 │   ├── DATABASE_DEPLOYMENT_GUIDE.md
-│   └── SECURITY_GUIDE.md       # 安全指南
+│   ├── SECURITY_GUIDE.md          # 安全指南
+│   ├── ALIYUN_ECS_DEPLOYMENT.md   # 阿里云部署
+│   ├── FILE_STORAGE_CONFIG.md     # 文件存储配置
+│   └── FILE_STORAGE_SOLUTION.md
 │
-├── features/                    # 功能说明
-│   ├── SMART_TEMPLATES.md
-│   ├── SMART_TEMPLATES_QUICKSTART.md
-│   ├── CONFLICT_DETECTION.md
-│   ├── CONFLICT_DETECTION_GUIDE.md
+├── features/                       # 功能说明
+│   ├── API_USAGE_LIMITS.md        # API 使用限制
+│   ├── ATTACHMENTS.md             # 附件功能 🆕
 │   ├── AUTO_BACKUP.md
 │   ├── AUTO_BACKUP_QUICKSTART.md
+│   ├── BLOG_EDITOR_OPTIMIZATION.md
+│   ├── BLOG_WRITING_FEATURE.md
+│   ├── CALENDAR_AND_RECURRENCE_GUIDE.md
+│   ├── CONFLICT_DETECTION.md
+│   ├── CONFLICT_DETECTION_GUIDE.md
+│   ├── REMINDER_IMPLEMENTATION.md
+│   ├── REMINDER_SETUP.md
+│   ├── SMART_REPORT_ENHANCEMENT.md
+│   ├── SMART_TEMPLATES.md
+│   ├── SMART_TEMPLATES_QUICKSTART.md
+│   ├── SMART_URL_CARD.md
 │   ├── URL_PROCESSING.md
-│   └── CALENDAR_AND_RECURRENCE_GUIDE.md
+│   ├── VOICE_INPUT.md
+│   └── VOICE_INPUT_IMPLEMENTATION.md
 │
-├── configuration/               # 配置说明
-│   └── GLM_SETUP.md            # GLM API 配置 ⭐
+├── configuration/                  # 配置说明
+│   ├── ENVIRONMENT.md             # 环境变量配置
+│   ├── GLM_SETUP.md               # GLM API 配置
+│   └── ATTACHMENT_CONFIG.md       # 附件配置 🆕
 │
-└── archive/                     # 历史文档（已过时）
-    └── ...
+├── fixes/                          # 问题修复文档
+│   ├── 404_ERROR_FIX.md
+│   ├── AUTH_TOKEN_PERSISTENCE_FIX.md
+│   ├── BLOG_EDITOR_FIXES.md
+│   ├── CONFLICT_DETECTION_OPTIMIZATION.md
+│   └── DEPLOYMENT_REMINDER_FIX.md
+│
+└── archive/                        # 归档文档（已过时）
+    ├── API_OPTIMIZATION_*.md
+    ├── ATTACHMENT_*.md
+    ├── BUGFIX_20251105.md
+    ├── COLOR_*_*.md
+    ├── DEPLOYMENT_*.md
+    └── ...其他历史文档
 ```
 
 ---

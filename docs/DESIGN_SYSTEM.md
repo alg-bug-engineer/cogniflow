@@ -11,6 +11,75 @@
 3. **统一管理**：所有设计令牌集中在 `src/index.css` 和 `tailwind.config.js` 中定义
 4. **易于维护**：修改设计系统只需更新 CSS 变量，无需改动组件代码
 
+---
+
+## 快速参考
+
+### 常用颜色替换对照表
+
+#### 文本颜色
+
+```tsx
+// ❌ 旧的硬编码方式
+<h1 className="text-gray-900 dark:text-white">标题</h1>
+<p className="text-gray-600 dark:text-gray-400">描述</p>
+
+// ✅ 新的设计系统方式
+<h1 className="text-foreground">标题</h1>
+<p className="text-muted-foreground">描述</p>
+```
+
+#### 背景颜色
+
+```tsx
+// ❌ 旧的硬编码方式
+<div className="bg-white dark:bg-gray-900">页面</div>
+<div className="bg-white dark:bg-gray-800">卡片</div>
+
+// ✅ 新的设计系统方式
+<div className="bg-background">页面</div>
+<div className="bg-card">卡片</div>
+```
+
+#### 主题色
+
+```tsx
+// ❌ 旧的硬编码方式
+<Button className="bg-blue-600 text-white">按钮</Button>
+<Loader2 className="text-blue-600 dark:text-blue-400" />
+
+// ✅ 新的设计系统方式
+<Button className="bg-primary text-primary-foreground">按钮</Button>
+<Loader2 className="text-primary" />
+```
+
+#### 边框颜色
+
+```tsx
+// ❌ 旧的硬编码方式
+<div className="border border-gray-200 dark:border-gray-800">
+
+// ✅ 新的设计系统方式
+<div className="border border-border">
+```
+
+### 透明度使用
+
+使用 `/` 语法设置透明度：
+
+```tsx
+// 5% 透明度的主题色背景
+<div className="bg-primary/5">
+
+// 30% 透明度的主题色边框
+<div className="border-primary/30">
+
+// 30% 透明度的静音文字
+<Icon className="text-muted-foreground/30" />
+```
+
+---
+
 ## 颜色系统
 
 ### 基础颜色
