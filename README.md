@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src="./docs/static/images/logo.png" alt="CogniFlow Logo" width="120"/>
+<img src="./imgs/logo.png" alt="CogniFlow Logo" width="120"/>
 
 # 🚀 AI 驱动的智能信息管理平台
 
@@ -14,9 +14,9 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)](https://www.typescriptlang.org)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?logo=postgresql)](https://www.postgresql.org)
 
-[在线体验](https://cogniflow.app) · [快速开始](#-快速开始) · [功能特性](#-核心功能) · [文档](#-文档导航) · [路线图](#-产品规划)
+[在线体验](https://ci.ai-knowledgepoints.cn/) · [📥 项目介绍 PPT](./imgs/CogniFlow_Introduction.pptx) · [快速开始](#-快速开始) · [功能特性](#-核心功能) · [文档](#-文档导航) · [路线图](#-产品规划)
 
-[English](./README_EN.md) · 简体中文
+简体中文
 
 </div>
 
@@ -46,6 +46,7 @@
 ### 🎯 设计理念
 
 - **AI First**: 将 AI 深度融入每一个工作流，而非简单的功能叠加
+- **Calm Tech**: 平静技术理念，界面柔和专业，减少干扰
 - **Simple but Powerful**: 界面简洁，功能强大
 - **Privacy First**: 本地优先，数据自主可控
 - **Open & Extensible**: 开源架构，支持插件扩展
@@ -67,7 +68,7 @@
 ### 🤖 AI 智能引擎
 
 <div align="center">
-  <img src="./docs/static/images/ai-demo.gif" alt="AI 功能演示" width="800"/>
+  <video src="./imgs/demo.mp4" controls width="100%"></video>
 </div>
 
 #### 智能分类与理解
@@ -101,6 +102,10 @@ AI_Capabilities {
 - **📝 列表视图**: 高效的信息浏览和批量操作
 - **📈 报告视图**: AI 自动生成周报、月报和数据分析
 
+<div align="center">
+  <img src="./imgs/report.png" alt="报告视图" width="800"/>
+</div>
+
 ### 🎙️ 多模态输入
 
 - **自然语言**: 直接输入，AI 自动处理
@@ -111,7 +116,13 @@ AI_Capabilities {
 ### 🔔 智能提醒系统
 
 <div align="center">
-  <img src="./docs/static/images/reminder-demo.png" alt="提醒系统" width="600"/>
+  <img src="./imgs/main.png" alt="主要界面" width="800"/>
+  <br/>
+  <br/>
+  <div style="display: flex; gap: 10px; justify-content: center;">
+    <img src="./imgs/cal.png" alt="日历视图" width="48%"/>
+    <img src="./imgs/broad.png" alt="看板视图" width="48%"/>
+  </div>
 </div>
 
 - **冲突检测**: 自动检测时间冲突并给出建议
@@ -610,7 +621,7 @@ CogniFlow 支持**系统级 API Key** 和**用户个人 API Key**：
 ### 📧 联系方式
 
 - **邮箱**: support@cogniflow.app
-- **官网**: https://cogniflow.app
+- **官网**: https://ci.ai-knowledgepoints.cn/
 - **文档**: https://docs.cogniflow.app
 
 ### 💬 社区
@@ -691,6 +702,6 @@ SOFTWARE.
 
 Made with ❤️ by CogniFlow Team
 
-[官网](https://cogniflow.app) · [文档](./docs) · [博客](https://blog.cogniflow.app) · [Twitter](https://twitter.com/cogniflow)
+[官网](https://ci.ai-knowledgepoints.cn/) · [文档](./docs) · [博客](https://blog.cogniflow.app) · [Twitter](https://twitter.com/cogniflow)
 
 </div>
