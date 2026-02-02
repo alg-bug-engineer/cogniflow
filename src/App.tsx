@@ -6,6 +6,7 @@ import { initDB } from '@/db/indexeddb';
 import { autoBackupService } from '@/services/autoBackup';
 import Header from '@/components/common/Header';
 import ContactButton from '@/components/common/ContactButton';
+import Footer from '@/components/common/Footer';
 import routes from './routes';
 
 export default function App() {
@@ -87,6 +88,7 @@ export default function App() {
         ))}
       </Routes>
       <ContactButton />
+      <Footer />
     </Router>
   );
 }

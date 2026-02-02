@@ -1215,7 +1215,7 @@ export default function QuickInput({
       />
 
       {/* 输入框 */}
-      <div className="fixed bottom-0 left-0 right-0 bg-background border-t border-border p-4 shadow-lg z-50">
+      <div className="fixed bottom-6 left-0 right-0 bg-background border-t border-border p-4 shadow-lg z-50">
         <div className="max-w-4xl mx-auto">
           {/* 模板菜单 */}
           {showTemplateMenu && (
