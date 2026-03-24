@@ -1,2 +1,6 @@
+packages:
+  - "."
+  - "server"
+
 onlyBuiltDependencies:
-- "@ast-grep/cli"
+  - "@ast-grep/cli"
